@@ -1,4 +1,4 @@
-package com.mini.spring;
+package com.mini.spring.beans.factory.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
