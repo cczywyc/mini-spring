@@ -1,10 +1,10 @@
 package com.mini.spring.context;
 
-import com.mini.spring.beans.BeanException;
-import com.mini.spring.beans.factory.BeanFactory;
-import com.mini.spring.beans.factory.SimpleBeanFactory;
-import com.mini.spring.beans.factory.config.BeanDefinition;
-import com.mini.spring.beans.factory.xml.XmlBeanDefinitionReader;
+import com.mini.spring.beans.NoSuchBeanDefinitionException;
+import com.mini.spring.beans.BeanFactory;
+import com.mini.spring.beans.SimpleBeanFactory;
+import com.mini.spring.beans.BeanDefinition;
+import com.mini.spring.beans.XmlBeanDefinitionReader;
 import com.mini.spring.core.ClassPathXmlResource;
 import com.mini.spring.core.Resource;
 
@@ -14,23 +14,28 @@ import com.mini.spring.core.Resource;
  * @author cczywyc
  */
 public class ClassPathXmlApplicationContext implements BeanFactory {
-    BeanFactory beanFactory;
+    SimpleBeanFactory beanFactory;
 
     public ClassPathXmlApplicationContext(String fileName) {
         Resource resource = new ClassPathXmlResource(fileName);
-        BeanFactory beanFactory = new SimpleBeanFactory();
-        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+        SimpleBeanFactory bf = new SimpleBeanFactory();
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(bf);
         reader.loadBeanDefinitions(resource);
-        this.beanFactory = beanFactory;
+        this.beanFactory = bf;
     }
 
     @Override
-    public Object getBean(String beanName) throws BeanException {
+    public Object getBean(String beanName) throws NoSuchBeanDefinitionException {
         return this.beanFactory.getBean(beanName);
     }
 
     @Override
-    public void registerBeanDefinition(BeanDefinition beanDefinition) {
-        this.beanFactory.registerBeanDefinition(beanDefinition);
+    public Boolean containsBean(String name) {
+        return this.beanFactory.containsBean(name);
+    }
+
+    @Override
+    public void registerBean(String beanName, Object obj) {
+        this.beanFactory.registerBean(beanName, obj);
     }
 }

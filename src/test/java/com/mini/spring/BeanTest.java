@@ -1,6 +1,6 @@
 package com.mini.spring;
 
-import com.mini.spring.beans.BeanException;
+import com.mini.spring.beans.NoSuchBeanDefinitionException;
 import com.mini.spring.context.ClassPathXmlApplicationContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 public class BeanTest {
 
     @Test
-    public void simpleBeanTest() throws BeanException {
+    public void simpleBeanTest() throws NoSuchBeanDefinitionException {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
         AService service = (AService) context.getBean("AService");
         Assertions.assertEquals("AService say hello", service.sayHello());

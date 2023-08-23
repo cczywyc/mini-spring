@@ -1,7 +1,5 @@
-package com.mini.spring.beans.factory.xml;
+package com.mini.spring.beans;
 
-import com.mini.spring.beans.factory.BeanFactory;
-import com.mini.spring.beans.factory.config.BeanDefinition;
 import com.mini.spring.core.Resource;
 import org.dom4j.Element;
 
@@ -9,10 +7,10 @@ import org.dom4j.Element;
  * @author cczywyc
  */
 public class XmlBeanDefinitionReader {
-    BeanFactory beanFactory;
+    SimpleBeanFactory simpleBeanFactory;
 
-    public XmlBeanDefinitionReader(BeanFactory beanFactory) {
-        this.beanFactory = beanFactory;
+    public XmlBeanDefinitionReader(SimpleBeanFactory simpleBeanFactory) {
+        this.simpleBeanFactory = simpleBeanFactory;
     }
 
     public void loadBeanDefinitions(Resource resource) {
@@ -21,7 +19,7 @@ public class XmlBeanDefinitionReader {
             String beanId = element.attributeValue("id");
             String beanClassName = element.attributeValue("class");
             BeanDefinition beanDefinition = new BeanDefinition(beanId, beanClassName);
-            this.beanFactory.registerBeanDefinition(beanDefinition);
+            this.simpleBeanFactory.resisterBeanDefinition(beanDefinition);
         }
     }
 }
