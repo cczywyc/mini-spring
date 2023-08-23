@@ -1,5 +1,6 @@
 package com.mini.spring.context;
 
+import com.mini.spring.beans.BeansException;
 import com.mini.spring.beans.NoSuchBeanDefinitionException;
 import com.mini.spring.beans.BeanFactory;
 import com.mini.spring.beans.SimpleBeanFactory;
@@ -13,7 +14,7 @@ import com.mini.spring.core.Resource;
  *
  * @author cczywyc
  */
-public class ClassPathXmlApplicationContext implements BeanFactory {
+public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationEventPublisher {
     SimpleBeanFactory beanFactory;
 
     public ClassPathXmlApplicationContext(String fileName) {
@@ -25,7 +26,7 @@ public class ClassPathXmlApplicationContext implements BeanFactory {
     }
 
     @Override
-    public Object getBean(String beanName) throws NoSuchBeanDefinitionException {
+    public Object getBean(String beanName) throws NoSuchBeanDefinitionException, BeansException {
         return this.beanFactory.getBean(beanName);
     }
 
@@ -37,5 +38,25 @@ public class ClassPathXmlApplicationContext implements BeanFactory {
     @Override
     public void registerBean(String beanName, Object obj) {
         this.beanFactory.registerBean(beanName, obj);
+    }
+
+    @Override
+    public boolean isSingleton(String name) {
+        return false;
+    }
+
+    @Override
+    public boolean isPrototype(String name) {
+        return false;
+    }
+
+    @Override
+    public Class<?> getType(String name) {
+        return null;
+    }
+
+    @Override
+    public void publishEvent(ApplicationEvent event) {
+
     }
 }
