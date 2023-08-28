@@ -1,7 +1,6 @@
 package com.mini.spring.beans;
 
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -128,24 +127,15 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
                 try {
                     con = clz.getConstructor(paramTypes);
                     obj = con.newInstance(paramValues);
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                } catch (SecurityException e) {
-                    e.printStackTrace();
-                } catch (IllegalArgumentException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
+                } catch (NoSuchMethodException | SecurityException | IllegalArgumentException |
+                         InvocationTargetException e) {
                     e.printStackTrace();
                 }
             } else {
                 obj = clz.newInstance();
             }
 
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 

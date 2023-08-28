@@ -2,7 +2,6 @@ package com.mini.spring.beans;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 
 /**
  * bean definition
